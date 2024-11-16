@@ -1,1 +1,1 @@
-random c# projects by me. so im not bad forever.
+Random C# projects by me. So I'm not bad forever.
