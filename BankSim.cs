@@ -1,9 +1,8 @@
 using System;
-using System.Reflection.Metadata.Ecma335;
 
 namespace BankSim
 {
-    class BankSim
+    class Program
     {
         static decimal MoneyC = 100;
         static decimal MoneyS = 50;
@@ -115,29 +114,7 @@ namespace BankSim
             int userChoice = Convert.ToInt32(Console.ReadLine());
             if (userChoice == 1)
             {
-                Console.Write("How much money do you want to deposit from your checkings account? : ");
-                decimal amount = Convert.ToDecimal(Console.ReadLine());
-                amount = Math.Round(amount, 2);
-                if (amount > MoneyC)
-                {
-                    Console.WriteLine($"You are missing {amount - MoneyC}$.");
-                    Console.ReadKey();
-                }
-                else if (amount < 0)
-                {
-                    Console.WriteLine($"You can't enter a negative amount.");
-                    Console.ReadKey();
-                }
-                else
-                {
-                    MoneyS += amount;
-                    MoneyC -= amount;
-                    Console.WriteLine($"Current balance in checkings account: {MoneyC}$.");
-                }
-            }
-            if (userChoice == 2)
-            {
-                Console.Write("How much money do you want to deposit from your savings account? : ");
+                Console.Write("How much money do you want to deposit to your checkings account? : ");
                 decimal amount = Convert.ToDecimal(Console.ReadLine());
                 amount = Math.Round(amount, 2);
                 if (amount > MoneyS)
@@ -154,6 +131,28 @@ namespace BankSim
                 {
                     MoneyS -= amount;
                     MoneyC += amount;
+                    Console.WriteLine($"Current balance in checkings account: {MoneyS}$.");
+                }
+            }
+            if (userChoice == 2)
+            {
+                Console.Write("How much money do you want to deposit to your savings account? : ");
+                decimal amount = Convert.ToDecimal(Console.ReadLine());
+                amount = Math.Round(amount, 2);
+                if (amount > MoneyC)
+                {
+                    Console.WriteLine($"You are missing {amount - MoneyC}$.");
+                    Console.ReadKey();
+                }
+                else if (amount < 0)
+                {
+                    Console.WriteLine($"You can't enter a negative amount.");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    MoneyS += amount;
+                    MoneyC -= amount;
                     Console.WriteLine($"Current balance in savings account: {MoneyS}$.");
                 }
             }
