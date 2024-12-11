@@ -32,7 +32,7 @@ namespace Hangman
             while (!guessed)
             {
                 Console.Clear();
-                Console.WriteLine($"Number of mistakes: {mistakes}.");
+                Console.WriteLine($"Number of mistakes: {mistakes}");
                 Console.WriteLine(hiddenWord);
                 Console.Write("> ");
                 guess = Console.ReadLine();
@@ -78,7 +78,7 @@ namespace Hangman
 
                 else
                 {
-                    Console.WriteLine($"You've already guessed '{guess}'.");
+                    Console.Write($"You've already guessed '{guess}'.");
                     mistakes++;
                 }
 
