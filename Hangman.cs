@@ -18,9 +18,11 @@ namespace Hangman
             {
                 Console.Clear();
                 Console.Write("Enter word for hangman: ");
-                word = Console.ReadLine();
+                word = Console.ReadLine()?.Trim();
             }
             while (string.IsNullOrEmpty(word));
+
+            word = System.Text.RegularExpressions.Regex.Replace(word, @"\s+", " ");
 
             Console.Clear();
 
