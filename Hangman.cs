@@ -1,36 +1,32 @@
 using System;
+using System.Collections.Generic;
 
 namespace Hangman
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             string? word;
             string hiddenWord = "";
-            string? guess = "";
+            string? guess;
             bool guessed = false;
             int mistakes = 0;
-            string? previousGuess = "";
+            var previousGuesses = new HashSet<char>();
 
             do
             {
                 Console.Clear();
                 Console.Write("Enter word for hangman: ");
                 word = Console.ReadLine();
-            } while (string.IsNullOrEmpty(word));
+            }
+            while (string.IsNullOrEmpty(word));
+
             Console.Clear();
 
             foreach (char c in word)
             {
-                if (c == ' ')
-                {
-                    hiddenWord += ' ';
-                }
-                else
-                {
-                    hiddenWord += '_';
-                }
+                hiddenWord += (c == ' ') ? ' ' : '_';
             }
 
             while (!guessed)
@@ -43,7 +39,7 @@ namespace Hangman
 
                 if (string.IsNullOrEmpty(guess))
                 {
-                    Console.WriteLine("Please enter something.");
+                    Console.Write("Please enter something.");
                     Console.ReadKey();
                     Console.Clear();
                     continue;
@@ -51,13 +47,25 @@ namespace Hangman
 
                 else if (guess.Length > 1)
                 {
-                    Console.WriteLine("Please only enter one letter at a time.");
+                    Console.Write("Please only enter one letter at a time.");
                     Console.ReadKey();
                     Console.Clear();
                     continue;
                 }
 
-                else if (word.Contains(guess))
+                else if (previousGuesses.Contains(guess[0]))
+                {
+                    Console.Write($"You've already guessed '{guess}'.");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                else
+                {
+                    previousGuesses.Add(guess[0]);
+                }
+
+                if (word.Contains(guess))
                 {
                     for (int i = 0; i < word.Length; i++)
                     {
@@ -68,18 +76,11 @@ namespace Hangman
                     }
                 }
 
-                else if (!word.Contains(guess) && guess != previousGuess)
-                {
-                    Console.WriteLine($"This word doesn't contain '{guess}'.");
-                    mistakes++;
-                }
-
-                else if (guess == previousGuess)
+                else
                 {
                     Console.WriteLine($"You've already guessed '{guess}'.");
+                    mistakes++;
                 }
-
-                previousGuess = guess;
 
                 if (hiddenWord == word)
                 {
@@ -91,7 +92,7 @@ namespace Hangman
             if (guessed)
             {
                 Console.Clear();
-                Console.WriteLine($"Number of mistakes: {mistakes}.");
+                Console.WriteLine($"Number of mistakes: {mistakes}");
                 Console.WriteLine($"Guessed word: \"{word}\".");
                 Console.WriteLine("You won!");
                 Console.ReadKey(intercept: true);
@@ -99,4 +100,3 @@ namespace Hangman
         }
     }
 }
-// A little broken will fix later
